@@ -28,9 +28,17 @@ jobs:
       # If you are using yarn instead npm, remove the line above and uncomment the two lines below.
       # - node/install-packages:
       #     pkg-manager: yarn 
+
       - run:
           name: Run tests
           command: npm test
+
+      #Execute as remote environment, so that your current primary container will be able to use it. 
+      #Docker related commands will be safely executed in this new environment   
+      - setup_remote_docker:
+        version: 19.03.13
+
+      
 
 workflows:
   # Below is the definition of your workflow.
