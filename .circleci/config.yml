@@ -2,9 +2,9 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 executors:
-docker-publisher:
-environment:
-IMAGE_NAME: 562709/building-on-ci
+  docker-publisher:
+  environment:
+  IMAGE_NAME: 562709/building-on-ci
 docker:
   - image: circleci/buildpack-deps:stretch
 
@@ -40,7 +40,7 @@ jobs:
       #Execute as remote environment, so that your current primary container will be able to use it. 
       #Docker related commands will be safely executed in this new environment   
       - setup_remote_docker:
-        docker_layer_caching: true
+          docker_layer_caching: true
 
       - run: 
           name: Build Docker Image 
@@ -64,20 +64,20 @@ workflows:
   version: 2
 
   jobs:
-    - build-and-test
-      # For running simple node tests, you could optionally use the node/test job from the orb to replicate and replace the job above in fewer lines.
-      # - node/test
+  build-and-test
+    # For running simple node tests, you could optionally use the node/test job from the orb to replicate and replace the job above in fewer lines.
+    # - node/test
 
-      build-master:
-        jobs:
-          build:
-            filters:
-              branches:
-                only: master
-      publish-latest:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
+build-master:
+  jobs:
+    build:
+      filters:
+        branches:
+          only: master
+    publish-latest:
+        requires:
+          - build
+        filters:
+          branches:
+            only: master
 
